@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
+from utils import cloudFunctions
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -15,5 +16,6 @@ def about():
 
 
 if __name__ == "__main__":
+    print(cloudFunctions.getImageContents("http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"))
     app.debug = True
     app.run(host="0.0.0.0")
