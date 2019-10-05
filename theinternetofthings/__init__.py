@@ -14,7 +14,6 @@ def root():
 def about():
     return render_template("about.html")
 
-
 if __name__ == "__main__":
     print(cloudFunctions.getImageContents("http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"))
     app.debug = True
