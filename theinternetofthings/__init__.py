@@ -7,7 +7,11 @@ app.secret_key = os.urandom(16)
 
 @app.route("/")
 def root():
-    return render_template("base.html")
+    return redirect(url_for("about"))
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 if __name__ == "__main__":
