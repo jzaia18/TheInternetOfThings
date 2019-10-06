@@ -33,21 +33,6 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 //var context = canvas.getContext('2d');
 var imgURL;
 
-snap.addEventListener("click", function() {
-  $.ajax({
-    type: "POST",
-    url: "/capture",
-    data: {
-      url: imgURL
-    },
-    success: function(e) {
-      console.log(e);
-
-      window.location.href = window.location.origin + "/thing/" + e;
-    },
-  });
-});
-
 function changePic(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -63,3 +48,19 @@ function changePic(input) {
     //console.log(reader.result);
   }
 }
+
+
+snap.addEventListener("click", function() {
+  $.ajax({
+    type: "POST",
+    url: "/capture",
+    data: {
+      url: imgURL
+    },
+    success: function(e) {
+      console.log(e);
+
+      window.location.href = window.location.origin + "/thing/" + e;
+    },
+  });
+});

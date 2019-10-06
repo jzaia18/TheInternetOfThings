@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{data["name"]}}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/displayThing.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<h2>Your Thing: {{data["name"]}}</h2>
+<hr>
+<span id="votes"> <span id="likes"> {{data["likes"]}} likes </span> ||<span id="dislikes"> {{data["dislikes"]}} dislikes</span> </span>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

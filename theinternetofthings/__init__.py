@@ -32,7 +32,7 @@ def snap():
 def thing(mid):
     print(mid, "/m/" + mid)
     thing = mongoUtils.get_thing("/m/" + mid)
-    return str(thing)
+    return render_template("displayThing.html", data=thing)
 
 @app.route("/capture", methods=["POST"])
 def capture():

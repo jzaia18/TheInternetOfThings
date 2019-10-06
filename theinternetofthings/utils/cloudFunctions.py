@@ -17,10 +17,11 @@ def getImageText(img_url):
 
     return r.text
 
-def translateText(text):
+def translateText(text, lang):
     url = "https://us-central1-theinternetofthings.cloudfunctions.net/translateLabel"
     query_string = "?"
     query_string += "text=" + text
+    query_string += "&target=" + lang
     r = requests.get(url + query_string)
 
     return r.text
