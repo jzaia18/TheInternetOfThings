@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import random
+from time import sleep
 from utils import cloudFunctions
 from OpenSSL import SSL
 import base64
@@ -43,6 +44,7 @@ def capture():
     f.close()
     print(SERVER_ADDR + url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
+    sleep(5)
     os.remove(UPLOAD_FOLDER + filename)
     return str(ret)
 
