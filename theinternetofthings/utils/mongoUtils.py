@@ -29,10 +29,10 @@ def dislike(mid):
 
 def add_stopword(word):
     if word not in get_stopwords():
-        pass
+        stopwords.insert_one({"word": word})
 
 def get_stopwords():
-    return stopwords.find()
+    return [x["word"] for x in stopwords.find()]
 
 if __name__ == '__main__':
     import cloudFunctions

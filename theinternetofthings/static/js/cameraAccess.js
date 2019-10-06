@@ -34,5 +34,25 @@ init();
 // Draw image
 var context = canvas.getContext('2d');
 snap.addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 640, 480);
+  context.drawImage(video, 0, 0, 640, 480);
+  var imgURL = canvas.toDataURL();
+  $.ajax({
+    type: "POST",
+    url: "/capture",
+    data: {
+      url: imgURL
+    },
+    success: function(e) {
+      if (e.success) {
+        alert('Your file was successfully uploaded!');
+      } else {
+        alert('There was not not an error uploading your file!');
+      }
+    },
+    error: function(e) {
+      alert('There was an error uploading your file!');
+    }
+  }).done(function() {
+    console.log("Sent");
+  });
 });

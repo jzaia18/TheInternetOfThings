@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import os
 from utils import cloudFunctions
 
-import numpy as np
-import cv2
-import re
 import base64
 
 import io
@@ -27,13 +24,14 @@ def snap():
 # testing this, will delete if fails
 @app.route("/capture", methods=["POST"])
 def capture():
-    data = request.data
+    data = request.form["url"]
     encoded_data = data.split(',')[1]
-    nparr = np.fromstring(encoded_data.decode('base64'), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    cv2.imshow(img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    decoded_data = base64.b64decode(encoded_data)
+    f = open("test.png", "wb")
+    f.write(decoded_data)
+    f.close()
+    print(decoded_data)
+    return str(decoded_data)
 
 if __name__ == "__main__":
     print(cloudFunctions.getImageContents("http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"))
