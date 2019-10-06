@@ -79,7 +79,7 @@ def snap():
 def tcg():
     return render_template("cardScan.html")
 
-@app.route("/like/<mid>")
+@app.route("/like/<mid>", methods=["POST"])
 def like(mid):
     mongoUtils.like(mid)
 
@@ -87,7 +87,7 @@ def like(mid):
 def dislike(mid):
     mongoUtils.dislike(mid)
 
-@app.route("/thing/<mid>", methods=["POST"])
+@app.route("/thing/<mid>")
 def thing(mid):
     print(mid, "/m/" + mid)
     thing = mongoUtils.get_thing("/m/" + mid)
