@@ -32,7 +32,7 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 // Draw image
 //var context = canvas.getContext('2d');
 
-var mid = document.getElementById('mid').innerText;
+var mid = document.getElementById('mid').innerText.substring(3);
 
 dislike.addEventListener("click", function() {
   $.ajax({
