@@ -37,7 +37,6 @@ dislike.addEventListener("click", function() {
     type: "POST",
     url: "/dislike",
     data: {
-      url: imgURL
     },
     success: function(e) {
       console.log(e);
@@ -53,7 +52,6 @@ like.addEventListener("click", function() {
     type: "POST",
     url: "/like",
     data: {
-      url: imgURL
     },
     success: function(e) {
       console.log(e);
