@@ -43,8 +43,6 @@ dislike.addEventListener("click", function() {
     },
     success: function(e) {
       console.log(e);
-
-      window.location.href = window.location.origin + "/thing/" + e;
     },
   });
 });
@@ -59,8 +57,6 @@ like.addEventListener("click", function() {
     },
     success: function(e) {
       console.log(e);
-
-      window.location.href = window.location.origin + "/thing/" + e;
     },
   });
 });
