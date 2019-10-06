@@ -2,10 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import os
 import random
 from utils import cloudFunctions
-
+from OpenSSL import SSL
 import base64
-
 import io
+
+# print(SSL._CERTIFICATE_PATH_LOCATIONS)
+# context = SSL.Context(SSL.SSLv23_METHOD)
+# context.use_privatekey_file('theinternetofthings.key')
+# context.use_certificate_file('theinternetofthings.crt')
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
