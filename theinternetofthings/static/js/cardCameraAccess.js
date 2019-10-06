@@ -58,8 +58,10 @@ snap.addEventListener("click", function() {
       url: imgURL
     },
     success: function(e) {
-      console.log(e);
+      e = e.replace(/'/g, '"');
+      e = JSON.parse(e);
 
+      console.log(e);
       //$("#info")[0].innerText = e;
       $("#cardlink")[0].href = e.link;
       $("#cardname")[0].innerText = e.name;
