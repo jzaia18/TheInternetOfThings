@@ -6,6 +6,8 @@ from OpenSSL import SSL
 import base64
 import io
 
+UPLOAD_FOLDER = "static/"
+
 # print(SSL._CERTIFICATE_PATH_LOCATIONS)
 # context = SSL.Context(SSL.SSLv23_METHOD)
 # context.use_privatekey_file('theinternetofthings.key')
@@ -33,12 +35,13 @@ def capture():
     encoded_data = data.split(',')[1]
     decoded_data = base64.b64decode(encoded_data)
     filename = "img/tmp/" + str(random.randint(0,999999999999)) + ".png"
-    f = open("static/" + filename, "wb")
+    print(filename)
+    print(UPLOAD_FOLDER + filename)
+    f = open(UPLOAD_FOLDER + filename, "wb")
     f.write(decoded_data)
     f.close()
-    print(url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(url_for('static', filename=filename))
-    os.remove("static/" + filename)
+    os.remove(UPLOAD_FOLDER + filename)
     return str(ret)
 
 if __name__ == "__main__":
