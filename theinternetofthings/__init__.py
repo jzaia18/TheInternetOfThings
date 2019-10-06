@@ -43,10 +43,14 @@ def capture():
     f = open(UPLOAD_FOLDER + filename, "wb")
     f.write(decoded_data)
     f.close()
-    print(SERVER_ADDR + url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
-    mongoUtils.create_thing(ret[0])
-    os.remove(UPLOAD_FOLDER + filename)
+    success = mongoUtils.create_thing(ret[0])
+
+    if success:
+        os.rename(UPLOAD_FOLDER + filename, UPLOAD_FOLDER + "img/things/" + ret[0]["mid"][3:] + ".png")
+    else:
+        os.remove(UPLOAD_FOLDER + filename)
+
     return ret[0]["mid"][3:]
 
 if __name__ == "__main__":
