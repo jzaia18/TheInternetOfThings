@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from functools import wraps
 import os
 import random
 from utils import cloudFunctions
@@ -8,27 +9,73 @@ import base64
 UPLOAD_FOLDER = "static/"
 SERVER_ADDR = "http://theinternetofthings.vision"
 
-# print(SSL._CERTIFICATE_PATH_LOCATIONS)
-# context = SSL.Context(SSL.SSLv23_METHOD)
-# context.use_privatekey_file('theinternetofthings.key')
-# context.use_certificate_file('theinternetofthings.crt')
+#authentication wrapper
+def require_login(f):
+    @wraps(f)
+    def inner(*args, **kwargs):
+        if 'uname' not in session:
+            flash("Please log in to use The Internet of Things")
+            return redirect(url_for("root"))
+        else:
+            return f(*args, **kwargs)
+    return inner
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 @app.route("/")
 def root():
-    return redirect(url_for("about"))
+    if "uname" in session:
+        return redirect(url_for("about"))
+    return render_template("login.html")
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
+@app.route("/login", methods=["POST"])
+def login():
+    if ("username" in request.form and "password" in request.form):
+        if (mongoUtils.authenticate(request.form["username"], request.form["password"])):
+            user = mongoUtils.get_user(request.form["username"])
+            if (user != None):
+                session["uname"] = user["username"]
+            return redirect(url_for("about"))
+        else:
+            flash("Wrong username or password")
+            return redirect(url_for("root"))
+    else:
+        return redirect(url_for("root"))
+
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    if ("username" in request.form and "password" in request.form):
+        if (mongoUtils.create_user(request.form["username"], request.form["password"])):
+            session["uname"] = mongoUtils.get_user(request.form["username"])["username"]
+            return redirect(url_for("about"))
+        else:
+            flash("That username is already taken")
+            return redirect(url_for("root"))
+    else:
+        return redirect(url_for("root"))
+
+
+@app.route("/logout")
+@require_login
+def logout():
+    session.pop("uname")
+    return redirect(url_for("root"))
+
+
 @app.route("/snap")
+@require_login
 def snap():
     return render_template("cameraAccess.html")
 
 @app.route("/tcg")
+@require_login
 def tcg():
     return render_template("cardScan.html")
 
@@ -41,6 +88,7 @@ def dislike(mid):
     mongoUtils.dislike(mid)
 
 @app.route("/thing/<mid>")
+@require_login
 def thing(mid):
     print(mid, "/m/" + mid)
     thing = mongoUtils.get_thing("/m/" + mid)

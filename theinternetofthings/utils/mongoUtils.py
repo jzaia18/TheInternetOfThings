@@ -1,10 +1,34 @@
 from pymongo import MongoClient
+from hashlib import sha256
 
 client = MongoClient()
 db = client.internetofthings
 things = db.things
 users = db.users
 stopwords = db.stopwords
+
+def hashPass(username, password):
+    return sha256(str(username+password).encode('utf-8')).hexdigest()
+
+def create_user(username, password):
+    if get_user(username) == None:
+        users.insert_one({
+            "username": username,
+            "password": hashPass(username, password),
+            "likes": [],
+            "dislikes": [],
+        })
+        return True
+    return False
+
+def get_user(username):
+    return users.find_one({"username": username})
+
+def authenticate(username, password):
+    user = get_user(username)
+    if user == None:
+        return False
+    return user["password"] == hashPass(username, password)
 
 def create_thing(thing):
     if not get_thing(thing["mid"]):

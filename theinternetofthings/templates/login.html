@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Login to The Internet of Things{% endblock %}
+
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css' ) }}" type="text/css" media="screen" />{% endblock %}
+
+{% block body %}
+<center>
+  <br /> <br />
+  <div class="backing card shadow">
+    <div class="card-body" id="login-tab">
+      <h2 class="card-title">Login to The Internet of Things!</h2> <br />
+      <form class="form-signin" method="POST" action="/login">
+        <input class="form-control" placeholder="Username" type="text" name="username" required> <br />
+        <input class="form-control" placeholder="Password" type="password" name="password" required> <br />
+        <input class="button btn btn-primary" type="submit" value="Login"> <br />
+      </form> <br />
+      Don't have an account? <button class="btn btn-link" id="swapper-l"> Create one </a>
+    </div>
+
+    <div class="card-body" id="signup-tab">
+      <h2 class="card-title">Create an account with us</h2> <br />
+      <form class="form-signin" method="POST" action="/signup">
+        <input class="form-control" placeholder="Username" type="text" name="username" required> <br />
+        <input id="pass" class="form-control" placeholder="Password" type="password" name="password" required> <br />
+        <input class="button btn btn-primary" type="submit" value="Sign Up"> <br />
+      </form> <br />
+      Already have an account? <button class="btn btn-link" id="swapper-s"> Login </a>
+    </div>
+  </div>
+</center>
+{% endblock %}
+
+{% block js %}     <script type="text/javascript" src="{{ url_for('static', filename='js/login.js' ) }}"></script>  {% endblock %}
