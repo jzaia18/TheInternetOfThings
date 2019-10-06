@@ -42,17 +42,9 @@ snap.addEventListener("click", function() {
     },
     success: function(e) {
       console.log(e);
-      if (e.success) {
-        alert('Your file was successfully uploaded!');
-      } else {
-        alert('There was not not an error uploading your file!');
-      }
+
+      window.location.href = window.location.origin + "/thing/" + e;
     },
-    error: function(e) {
-      alert('There was an error uploading your file!');
-    }
-  }).done(function() {
-    console.log("Sent");
   });
 });
 

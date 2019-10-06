@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-Document
+Picture Upload
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/camera.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<h1>Test</h1>
+<h1>Upload a Picture</h1>
 <!-- Stream video via webcam -->
 <!-- <div class="video-wrap">
      <video id="video" playsinline autoplay></video>
@@ -14,9 +18,9 @@ Document
 
 <!-- Trigger canvas web API -->
 <div class="controller">
-  <input type='file' onchange="changePic(this);" />
+  <input type='file' onchange="changePic(this);" />  <button id="snap">Send</button>
+  <br />
   <img id="show-img" src="#" alt="your image" />
-  <button id="snap">Send</button>
 </div>
 
 {% endblock %}

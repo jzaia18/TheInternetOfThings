@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import random
-from time import sleep
 from utils import cloudFunctions
-from OpenSSL import SSL
+from utils import mongoUtils
 import base64
-import io
 
 UPLOAD_FOLDER = "static/"
 SERVER_ADDR = "http://theinternetofthings.vision"
@@ -30,23 +28,26 @@ def about():
 def snap():
     return render_template("cameraAccess.html")
 
-# testing this, will delete if fails
+@app.route("/thing/<mid>")
+def thing(mid):
+    print(mid, "/m/" + mid)
+    thing = mongoUtils.get_thing("/m/" + mid)
+    return str(thing)
+
 @app.route("/capture", methods=["POST"])
 def capture():
     data = request.form["url"]
     encoded_data = data.split(',')[1]
     decoded_data = base64.b64decode(encoded_data)
     filename = "img/tmp/" + str(random.randint(0,999999999999)) + ".png"
-    print(filename)
-    print(UPLOAD_FOLDER + filename)
     f = open(UPLOAD_FOLDER + filename, "wb")
     f.write(decoded_data)
     f.close()
     print(SERVER_ADDR + url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
-    sleep(5)
+    mongoUtils.create_thing(ret[0])
     os.remove(UPLOAD_FOLDER + filename)
-    return str(ret)
+    return ret[0]["mid"][3:]
 
 if __name__ == "__main__":
     app.debug = True

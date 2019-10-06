@@ -7,7 +7,7 @@ users = db.users
 stopwords = db.stopwords
 
 def create_thing(thing):
-    if not getThing(thing["mid"]):
+    if not get_thing(thing["mid"]):
         things.insert_one({
             "likes": 0,
             "dislikes": 0,
