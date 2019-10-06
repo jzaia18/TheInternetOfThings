@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+Picture Upload
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/camera.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<h1>Upload a Picture of a Card</h1>
+<!-- Stream video via webcam -->
+<!-- <div class="video-wrap">
+     <video id="video" playsinline autoplay></video>
+     </div> -->
+
+<!-- Trigger canvas web API -->
+<div class="controller">
+  <input type='file' onchange="changePic(this);" />  <button id="snap">Send</button>
+  <br />
+  <img id="show-img" src="#" alt="your image" />
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/cardCameraAccess.js' ) }}"></script>
+{% endblock %}

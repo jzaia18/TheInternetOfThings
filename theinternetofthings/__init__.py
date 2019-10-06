@@ -28,6 +28,10 @@ def about():
 def snap():
     return render_template("cameraAccess.html")
 
+@app.route("/tcg")
+def tcg():
+    return render_template("cardScan.html")
+
 @app.route("/thing/<mid>")
 def thing(mid):
     print(mid, "/m/" + mid)
@@ -43,11 +47,30 @@ def capture():
     f = open(UPLOAD_FOLDER + filename, "wb")
     f.write(decoded_data)
     f.close()
-    print(SERVER_ADDR + url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
-    mongoUtils.create_thing(ret[0])
-    os.remove(UPLOAD_FOLDER + filename)
+    success = mongoUtils.create_thing(ret[0])
+
+    if success:
+        os.rename(UPLOAD_FOLDER + filename, UPLOAD_FOLDER + "img/things/" + ret[0]["mid"][3:] + ".png")
+    else:
+        os.remove(UPLOAD_FOLDER + filename)
+
     return ret[0]["mid"][3:]
+
+@app.route("/cardcapture", methods=["POST"])
+def cardCapture():
+    data = request.form["url"]
+    encoded_data = data.split(',')[1]
+    decoded_data = base64.b64decode(encoded_data)
+    filename = "img/tmp/" + str(random.randint(0,999999999999)) + ".png"
+    f = open(UPLOAD_FOLDER + filename, "wb")
+    f.write(decoded_data)
+    f.close()
+    ret = cloudFunctions.getImageText(SERVER_ADDR + url_for('static', filename=filename))
+
+    os.remove(UPLOAD_FOLDER + filename)
+
+    return ret
 
 if __name__ == "__main__":
     app.debug = True

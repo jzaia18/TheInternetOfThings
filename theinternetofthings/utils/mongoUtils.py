@@ -14,6 +14,8 @@ def create_thing(thing):
             "name": thing["name"],
             "mid": thing["mid"],
         })
+        return True
+    return False
 
 def get_thing(mid):
     found = things.find_one({
