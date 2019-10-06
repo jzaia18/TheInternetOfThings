@@ -58,6 +58,7 @@ snap.addEventListener("click", function() {
       url: imgURL
     },
     success: function(e) {
+      console.log(e);
       e = e.replace(/'/g, '"');
       e = JSON.parse(e);
 
@@ -65,8 +66,8 @@ snap.addEventListener("click", function() {
       //$("#info")[0].innerText = e;
       $("#cardlink")[0].href = e.link;
       $("#cardname")[0].innerText = e.name;
-      $("#price")[0].innerText = e.price;
-      $("#foilprice")[0].innerText = e.foil;
+      $("#price")[0].innerText = "$" + e.price;
+      $("#foilprice")[0].innerText = "$" + e.foil;
     },
   });
 });
