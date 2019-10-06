@@ -20,11 +20,15 @@ def getImageText(img_url):
 
 if __name__ == '__main__':
     print("Testing mode....")
-    img_url = "https://media.discordapp.net/attachments/564894502725222400/630217407738282004/20191005_213843.jpg"
-    #img_url = "http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"
-    print("Getting image: " + img_url + "...")
-    resp = getImageText(img_url)
-    print("Response received!")
-    print(resp)
-    # for entry in resp:
-    #    print(entry)
+    while (True):
+        img_url = input("Enter URL: ")
+        if img_url == '':
+            break
+        img_url = img_url.split("?")[0]
+        #img_url = "http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"
+        print("Getting image: " + img_url + "...")
+        resp = getImageText(img_url)
+        print("Response received!")
+        print(resp)
+        # for entry in resp:
+        #    print(entry)

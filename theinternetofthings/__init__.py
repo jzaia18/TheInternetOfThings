@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
+import random
 from utils import cloudFunctions
 
 import base64
@@ -27,13 +28,16 @@ def capture():
     data = request.form["url"]
     encoded_data = data.split(',')[1]
     decoded_data = base64.b64decode(encoded_data)
-    f = open("test.png", "wb")
+    filename = "img/tmp/" + str(random.randint(0,999999999999)) + ".png"
+    f = open("static/" + filename, "wb")
     f.write(decoded_data)
     f.close()
-    print(decoded_data)
-    return str(decoded_data)
+    print(url_for('static', filename=filename))
+    ret = cloudFunctions.getImageContents(url_for('static', filename=filename))
+    print(ret)
+    os.remove("static/" + filename)
+    return str(ret)
 
 if __name__ == "__main__":
-    print(cloudFunctions.getImageContents("http://edge.rit.edu/edge/P15482/public/Photo Gallery/RIT_logo.jpg"))
     app.debug = True
     app.run(host="0.0.0.0")
