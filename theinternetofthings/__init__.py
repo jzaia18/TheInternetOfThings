@@ -53,6 +53,21 @@ def capture():
 
     return ret[0]["mid"][3:]
 
+@app.route("/cardcapture", methods=["POST"])
+def cardCapture():
+    data = request.form["url"]
+    encoded_data = data.split(',')[1]
+    decoded_data = base64.b64decode(encoded_data)
+    filename = "img/tmp/" + str(random.randint(0,999999999999)) + ".png"
+    f = open(UPLOAD_FOLDER + filename, "wb")
+    f.write(decoded_data)
+    f.close()
+    ret = cloudFunctions.getImageText(SERVER_ADDR + url_for('static', filename=filename))
+
+    os.remove(UPLOAD_FOLDER + filename)
+
+    return ret
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
