@@ -61,7 +61,7 @@ snap.addEventListener("click", function() {
     success: function(e) {
       console.log(e);
 
-      window.location.href = window.location.origin + "/thing/" + e;
+      $("#info")[0].innerText = e;
     },
   });
 });
