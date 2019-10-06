@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-
+<label hidden id="mid">{{data['mid']}}</label>
 <h2>Your Thing: {{data["name"]}}</h2>
 <hr>
 <span id="votes"> <button id="like"><img id="like-img" src="{{ url_for('static', filename='img/like-up-arrow.png') }}" /></button> {{data["likes"]}}  </span> ||<button id="dislike"><img id="dislike-img" src="{{ url_for('static', filename='img/dislike-down-arrow.png') }}"/> {{data["dislikes"]}}  </button> </span>

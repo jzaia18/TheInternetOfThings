@@ -32,10 +32,12 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 // Draw image
 //var context = canvas.getContext('2d');
 
+var mid = document.getElementById('mid')
+
 dislike.addEventListener("click", function() {
   $.ajax({
     type: "POST",
-    url: "/dislike/<mid>",
+    url: "/dislike/" + mid,
     data: {
     },
     success: function(e) {
@@ -50,7 +52,7 @@ dislike.addEventListener("click", function() {
 like.addEventListener("click", function() {
   $.ajax({
     type: "POST",
-    url: "/like/<mid>",
+    url: "/like/" + mid,
     data: {
     },
     success: function(e) {
