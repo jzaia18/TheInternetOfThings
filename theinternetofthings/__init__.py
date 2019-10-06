@@ -38,10 +38,9 @@ def capture():
     f.close()
     print(url_for('static', filename=filename))
     ret = cloudFunctions.getImageContents(url_for('static', filename=filename))
-    print(ret)
     os.remove("static/" + filename)
     return str(ret)
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host="0.0.0.0", ssl_context='adhoc')
+    app.run(host="0.0.0.0")

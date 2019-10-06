@@ -1,39 +1,39 @@
 const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
+// const canvas = document.getElementById('canvas');
 const snap = document.getElementById('snap');
 const errorMsgElement = document.querySelector('span#errorMsg');
 
-const constraints = {
-  audio: false,
-  video: {
-    width: 1280, height: 720
-  }
-};
+// const constraints = {
+//   audio: false,
+//   video: {
+//     width: 1280, height: 720
+//   }
+// };
 
 // Access webcam
-async function init() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    handleSuccess(stream);
-  } catch (e) {
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
-  }
-}
+// async function init() {
+//   try {
+//     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+//     handleSuccess(stream);
+//   } catch (e) {
+//     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+//   }
+// }
 
-// Success
-function handleSuccess(stream) {
-  window.stream = stream;
-  video.srcObject = stream;
-}
+// // Success
+// function handleSuccess(stream) {
+//   window.stream = stream;
+//   video.srcObject = stream;
+// }
 
 // Load init
-init();
+//init();
 
 // Draw image
-var context = canvas.getContext('2d');
+//var context = canvas.getContext('2d');
+var imgURL;
+
 snap.addEventListener("click", function() {
-  context.drawImage(video, 0, 0, 640, 480);
-  var imgURL = canvas.toDataURL();
   $.ajax({
     type: "POST",
     url: "/capture",
@@ -41,6 +41,7 @@ snap.addEventListener("click", function() {
       url: imgURL
     },
     success: function(e) {
+      console.log(e);
       if (e.success) {
         alert('Your file was successfully uploaded!');
       } else {
@@ -54,3 +55,19 @@ snap.addEventListener("click", function() {
     console.log("Sent");
   });
 });
+
+function changePic(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#show-img')
+        .attr('src', e.target.result);
+      imgURL = e.srcElement.result;
+      console.log(e.srcElement.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+    //console.log(reader.result);
+  }
+}

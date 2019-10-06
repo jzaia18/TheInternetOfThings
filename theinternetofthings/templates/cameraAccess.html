@@ -8,21 +8,17 @@ Document
 
 <h1>Test</h1>
 <!-- Stream video via webcam -->
-<div class="video-wrap">
-  <video id="video" playsinline autoplay></video>
-</div>
+<!-- <div class="video-wrap">
+     <video id="video" playsinline autoplay></video>
+     </div> -->
 
 <!-- Trigger canvas web API -->
 <div class="controller">
-  <button id="snap">Capture</button>
+  <input type='file' onchange="changePic(this);" />
+  <img id="show-img" src="#" alt="your image" />
+  <button id="snap">Send</button>
 </div>
 
-<!-- Webcam video snapshot -->
-<canvas id="canvas" width="640" height="480"></canvas>
-<!--
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-     <script src=snapSendToServer.js></script>
--->
 {% endblock %}
 
 {% block js %}
