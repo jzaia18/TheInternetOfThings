@@ -7,6 +7,7 @@ import base64
 import io
 
 UPLOAD_FOLDER = "static/"
+SERVER_ADDR = "http://theinternetofthings.vision"
 
 # print(SSL._CERTIFICATE_PATH_LOCATIONS)
 # context = SSL.Context(SSL.SSLv23_METHOD)
@@ -40,7 +41,8 @@ def capture():
     f = open(UPLOAD_FOLDER + filename, "wb")
     f.write(decoded_data)
     f.close()
-    ret = cloudFunctions.getImageContents(url_for('static', filename=filename))
+    print(SERVER_ADDR + url_for('static', filename=filename))
+    ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
     os.remove(UPLOAD_FOLDER + filename)
     return str(ret)
 
