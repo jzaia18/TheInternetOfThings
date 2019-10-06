@@ -63,7 +63,6 @@ def signup():
 
 
 @app.route("/logout")
-@require_login
 def logout():
     session.pop("uname")
     return redirect(url_for("root"))
@@ -73,12 +72,10 @@ def favicon():
     return url_for('static', filename="img/logo.png")
 
 @app.route("/snap")
-@require_login
 def snap():
     return render_template("cameraAccess.html")
 
 @app.route("/tcg")
-@require_login
 def tcg():
     return render_template("cardScan.html")
 
@@ -91,7 +88,6 @@ def dislike(mid):
     mongoUtils.dislike(mid)
 
 @app.route("/thing/<mid>")
-@require_login
 def thing(mid):
     print(mid, "/m/" + mid)
     thing = mongoUtils.get_thing("/m/" + mid)
