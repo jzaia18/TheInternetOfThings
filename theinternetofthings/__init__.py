@@ -68,6 +68,9 @@ def logout():
     session.pop("uname")
     return redirect(url_for("root"))
 
+@app.route("/favicon.ico")
+def favicon():
+    return url_for('static', filename="img/logo.png")
 
 @app.route("/snap")
 @require_login

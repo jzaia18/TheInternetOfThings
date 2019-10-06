@@ -55,7 +55,8 @@ snap.addEventListener("click", function() {
     type: "POST",
     url: "/cardcapture",
     data: {
-      url: imgURL
+      url: imgURL,
+      xhrFields: { withCredentials: true }
     },
     success: function(e) {
       console.log(e);
