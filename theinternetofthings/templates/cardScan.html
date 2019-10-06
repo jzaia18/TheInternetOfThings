@@ -5,7 +5,7 @@ Picture Upload
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/camera.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cardcamera.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -18,11 +18,13 @@ Picture Upload
 
 <!-- Trigger canvas web API -->
 <div class="controller">
-  <input type='file' onchange="changePic(this);" />  <button id="snap"><img id="upload-img" src="{{ url_for('static', filename='img/things/upload.png') }}" /></button>
+  <input type='file' onchange="changePic(this);" />  <button id="snap"><img id="upload-img" src="{{ url_for('static', filename='img/upload.png') }}" /></button>
   <br />
   <img id="show-img" src="#" alt="your image" />
 </div>
 <div id="info">
+  <a id="cardlink"> <h3 if="cardname"> </h3> </a>
+
 </div>
 
 {% endblock %}

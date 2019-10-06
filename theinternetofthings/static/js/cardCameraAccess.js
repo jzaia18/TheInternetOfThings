@@ -55,13 +55,14 @@ snap.addEventListener("click", function() {
     type: "POST",
     url: "/cardcapture",
     data: {
-      url: imgURL,
-      xhrFields: { withCredentials: true }
+      url: imgURL
     },
     success: function(e) {
       console.log(e);
 
-      $("#info")[0].innerText = e;
+      //$("#info")[0].innerText = e;
+      $("cardlink")[0].href = e.link;
+      $("cardname")[0] = e.name;
     },
   });
 });
