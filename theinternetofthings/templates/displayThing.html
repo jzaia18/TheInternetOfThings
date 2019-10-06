@@ -12,7 +12,7 @@
 
 <h2>Your Thing: {{data["name"]}}</h2>
 <hr>
-<span id="votes"> <button id="like"><img id="like-img" src="{{ url_for('static', filename='img/things/like-up-arrow.png') }}" /></button> {{data["likes"]}}  </span> ||<button id="dislike"><img id="dislike-img" src="{{ url_for('static', filename='img/things/dislike-down-arrow.png') }}"/> {{data["dislikes"]}}  </button> </span>
+<span id="votes"> <button id="like"><img id="like-img" src="{{ url_for('static', filename='img/like-up-arrow.png') }}" /></button> {{data["likes"]}}  </span> ||<button id="dislike"><img id="dislike-img" src="{{ url_for('static', filename='img/dislike-down-arrow.png') }}"/> {{data["dislikes"]}}  </button> </span>
 <br />
 <img id="ref-img" src="{{ url_for('static', filename='img/things/'+data['mid'][3:] + '.png') }}" />
 
@@ -21,4 +21,5 @@
 {% endblock %}
 
 {% block js %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/displayThing.js' ) }}"></script>
 {% endblock %}
