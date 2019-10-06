@@ -20,9 +20,13 @@ def root():
 def about():
     return render_template("about.html")
 
+@app.route("/snap")
+def snap():
+    return render_template("cameraAccess.html")
+
 # testing this, will delete if fails
-@app.route('/capture', methods=["POST"])
-def disp_pic():
+@app.route("/capture", methods=["POST"])
+def capture():
     data = request.data
     encoded_data = data.split(',')[1]
     nparr = np.fromstring(encoded_data.decode('base64'), np.uint8)
