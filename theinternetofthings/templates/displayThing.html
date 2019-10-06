@@ -14,7 +14,7 @@
 <hr>
 <span id="votes"> <span id="likes"> {{data["likes"]}} likes </span> ||<span id="dislikes"> {{data["dislikes"]}} dislikes</span> </span>
 
-<img href="{{ url_for('static', filename='img/thing/'+data['mid'][3:] + '.png') }}" />
+<img href="{{ url_for('static', filename='img/things/'+data['mid'][3:] + '.png') }}" />
 
 
 {% endblock %}
