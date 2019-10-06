@@ -28,6 +28,10 @@ def about():
 def snap():
     return render_template("cameraAccess.html")
 
+@app.route("/tcg")
+def tcg():
+    return render_template("cardScan.html")
+
 @app.route("/thing/<mid>")
 def thing(mid):
     print(mid, "/m/" + mid)
