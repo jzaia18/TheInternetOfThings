@@ -83,11 +83,11 @@ def tcg():
 def like(mid):
     mongoUtils.like(mid)
 
-@app.route("/dislike/<mid>")
+@app.route("/dislike/<mid>", methods=["POST"])
 def dislike(mid):
     mongoUtils.dislike(mid)
 
-@app.route("/thing/<mid>")
+@app.route("/thing/<mid>", methods=["POST"])
 def thing(mid):
     print(mid, "/m/" + mid)
     thing = mongoUtils.get_thing("/m/" + mid)
