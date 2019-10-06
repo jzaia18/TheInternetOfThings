@@ -61,8 +61,8 @@ snap.addEventListener("click", function() {
       console.log(e);
 
       //$("#info")[0].innerText = e;
-      $("cardlink")[0].href = e.link;
-      $("cardname")[0] = e.name;
+      $("#cardlink")[0].href = e.link;
+      $("#cardname")[0] = e.name;
     },
   });
 });
