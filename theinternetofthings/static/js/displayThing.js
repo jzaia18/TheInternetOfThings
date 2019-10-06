@@ -35,7 +35,7 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 dislike.addEventListener("click", function() {
   $.ajax({
     type: "POST",
-    url: "/dislike",
+    url: "/dislike/<mid>",
     data: {
     },
     success: function(e) {
@@ -50,7 +50,7 @@ dislike.addEventListener("click", function() {
 like.addEventListener("click", function() {
   $.ajax({
     type: "POST",
-    url: "/like",
+    url: "/like/<mid>",
     data: {
     },
     success: function(e) {
