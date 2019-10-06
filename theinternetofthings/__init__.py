@@ -32,6 +32,14 @@ def snap():
 def tcg():
     return render_template("cardScan.html")
 
+@app.route("/like/<mid>")
+def like(mid):
+    mongoUtils.like(mid)
+
+@app.route("/dislike/<mid>")
+def dislike(mid):
+    mongoUtils.dislike(mid)
+
 @app.route("/thing/<mid>")
 def thing(mid):
     print(mid, "/m/" + mid)
@@ -48,14 +56,25 @@ def capture():
     f.write(decoded_data)
     f.close()
     ret = cloudFunctions.getImageContents(SERVER_ADDR + url_for('static', filename=filename))
-    success = mongoUtils.create_thing(ret[0])
+    forbidden = mongoUtils.get_stopwords()
+    i = 0
+    for dic in ret:
+        if dic['name'] in forbidden:
+            i += 1
+        else:
+            break
+
+    if i >= len(ret):
+        i = 0
+
+    success = mongoUtils.create_thing(ret[i])
 
     if success:
-        os.rename(UPLOAD_FOLDER + filename, UPLOAD_FOLDER + "img/things/" + ret[0]["mid"][3:] + ".png")
+        os.rename(UPLOAD_FOLDER + filename, UPLOAD_FOLDER + "img/things/" + ret[i]["mid"][3:] + ".png")
     else:
         os.remove(UPLOAD_FOLDER + filename)
 
-    return ret[0]["mid"][3:]
+    return ret[i]["mid"][3:]
 
 @app.route("/cardcapture", methods=["POST"])
 def cardCapture():
